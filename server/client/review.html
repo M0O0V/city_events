@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы - Калуга Events</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/review.js" defer></script>
+</head>
+<body>
+    <section class="reviews-hero">
+        <div class="reviews-content">
+            <h1>Отзывы</h1>
+            <p>Оставьте отзыв о мероприятии</p>
+            <form id="reviewForm">
+                <textarea id="reviewText" placeholder="Напишите ваш отзыв" required></textarea>
+                <label for="rating">Оценка:</label>
+                <select id="rating" required>
+                    <option value="">Выберите оценку</option>
+                    <option value="1">⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                </select>
+                <button type="submit" class="review-button">Отправить</button>
+            </form>
+
+            <div class="reviews-container" id="reviewsContainer"></div>
+        </div>
+    </section>
+</body>
+</html>

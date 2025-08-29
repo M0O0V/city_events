@@ -1,0 +1,158 @@
+<!-- events.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>События - Калуга Events</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <section class="events-header">
+        <h1>Мероприятия в Калуге</h1>
+        <p>Ознакомьтесь с разнообразными событиями, организованными в нашем городе!</p>
+    
+        <!-- Новое меню с кнопками -->
+        <div class="menu">
+            <a href="/favorites.html" id="favoritesButton" class="menu-btn">Избранные мероприятия</a>
+        <a href="/reviews.html" id="reviewsButton" class="menu-btn">Мои отзывы</a>
+            <button id="toggleViewButton" class="menu-btn">Сетка / Список</button>
+            <button id="logoutButton" class="menu-btn">Выйти</button>
+        </div>
+       <!-- Строка поиска -->
+       <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Поиск мероприятий..." />
+        <button id="searchButton">Поиск</button>
+        <button id="resetButton">Сброс</button>
+    </div>
+<!-- Фильтры (изначально скрыты) -->
+<section class="filters" id="filterSection" hidden>
+    <div class="filter">
+        <label for="priceMin">Минимальная цена:</label>
+        <input type="number" id="priceMin" placeholder="От" />
+    </div>
+    <div class="filter">
+        <label for="priceMax">Максимальная цена:</label>
+        <input type="number" id="priceMax" placeholder="До" />
+    </div>
+    <div class="filter">
+        <label for="eventDateStart">Дата начала:</label>
+        <input type="date" id="eventDateStart" />
+    </div>
+    <div class="filter">
+        <label for="eventDateEnd">Дата окончания:</label>
+        <input type="date" id="eventDateEnd" />
+    </div>
+    <div class="filter">
+        <label for="eventTypeFilter">Тип мероприятия:</label>
+        <select id="eventTypeFilter">
+            <option value="">Выберите тип</option>
+            <!-- Типы мероприятий будут загружены через JS -->
+        </select>
+    </div>
+    <div class="filter">
+        <label for="minRating">Минимальный рейтинг:</label>
+        <input type="number" id="minRating" min="0" max="5" step="0.1" placeholder="От 0 до 5" />
+    </div>
+    <button id="applyFiltersButton">Применить фильтры</button>
+    <button id="resetFiltersButton">Сбросить фильтры</button>
+</section>
+
+<!-- Кнопка для показа/скрытия фильтров -->
+<button id="toggleFiltersButton">Показать фильтры</button>
+    </section>
+
+   <!-- Карусель с типами мероприятий -->
+<section class="events-carousel">
+    <h2>Популярные типы мероприятий</h2>
+    <div class="carousel-container">
+        <div class="carousel-item" data-event-type="Кино">
+            <img src="images/film.jpg" alt="Кино">
+            <p>Кино</p>
+        </div>
+        <div class="carousel-item" data-event-type="Театр">
+            <img src="images/theater.jpg" alt="Театр">
+            <p>Театр</p>
+        </div>
+        <div class="carousel-item" data-event-type="Концерты">
+            <img src="images/concert.jpg" alt="Концерты">
+            <p>Концерты</p>
+        </div>
+        <div class="carousel-item" data-event-type="Музеи">
+            <img src="images/museum.jpg" alt="Музеи">
+            <p>Музеи</p>
+        </div>
+        <div class="carousel-item" data-event-type="Мастер-классы">
+            <img src="images/masterclass.jpg" alt="Мастер-классы">
+            <p>Мастер-классы</p>
+        </div>
+        <div class="carousel-item" data-event-type="Выставки">
+            <img src="images/exhibition.jpg" alt="Выставки">
+            <p>Выставки</p>
+        </div>
+        <div class="carousel-item" data-event-type="Ярмарки">
+            <img src="images/fair.jpg" alt="Ярмарки">
+            <p>Ярмарки</p>
+        </div>
+        <div class="carousel-item" data-event-type="Спортивные события">
+            <img src="images/sports.jpg" alt="Спортивные события">
+            <p>Спортивные события</p>
+        </div>
+        <div class="carousel-item" data-event-type="Фестивали">
+            <img src="images/festival.jpg" alt="Фестивали">
+            <p>Фестивали</p>
+        </div>
+        <div class="carousel-item" data-event-type="Лекции и семинары">
+            <img src="images/lectures.jpg" alt="Лекции и семинары">
+            <p>Лекции и семинары</p>
+        </div>
+        <div class="carousel-item" data-event-type="Курсы и тренинги">
+            <img src="images/training.jpg" alt="Курсы и тренинги">
+            <p>Курсы и тренинги</p>
+        </div>
+        <div class="carousel-item" data-event-type="Экскурсии">
+            <img src="images/tours.jpg" alt="Экскурсии">
+            <p>Экскурсии</p>
+        </div>
+       <!--  <div class="carousel-item" data-event-type="Благотворительные мероприятия">
+            <img src="images/charity.jpg" alt="Благотворительные мероприятия">
+            <p>Благотворительные мероприятия</p>
+        </div>
+        <div class="carousel-item" data-event-type="Детские мероприятия">
+            <img src="images/kids.jpg" alt="Детские мероприятия">
+            <p>Детские мероприятия</p>
+        </div>
+        <div class="carousel-item" data-event-type="Литературные встречи">
+            <img src="images/literature.jpg" alt="Литературные встречи">
+            <p>Литературные встречи</p>
+        </div>
+        <div class="carousel-item" data-event-type="Технические выставки">
+            <img src="images/tech_exhibition.jpg" alt="Технические выставки">
+            <p>Технические выставки</p>
+        </div>
+        <div class="carousel-item" data-event-type="Флешмобы">
+            <img src="images/flashmob.jpg" alt="Флешмобы">
+            <p>Флешмобы</p>
+        </div>
+        <div class="carousel-item" data-event-type="Праздничные мероприятия">
+            <img src="images/holiday.jpg" alt="Праздничные мероприятия">
+            <p>Праздничные мероприятия</p>
+        </div>
+        <div class="carousel-item" data-event-type="Научные мероприятия">
+            <img src="images/science.jpg" alt="Научные мероприятия">
+            <p>Научные мероприятия</p>
+        </div>
+        <div class="carousel-item" data-event-type="Стендап-шоу – выступления комиков">
+            <img src="images/standup.jpg" alt="Стендап-шоу – выступления комиков">
+            <p>Стендап-шоу – выступления комиков</p>-->
+        </div>
+    </div>
+</section>
+
+    <!-- Контейнер для мероприятий -->
+    <section class="events-container grid-view" id="eventsContainer"></section>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

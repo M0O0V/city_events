@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать отзыв</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Редактирование отзыва</h1>
+        <div class="menu">
+            <a href="/reviews.html" class="menu-btn">Назад к отзывам</a>
+        </div>
+    </header>
+
+    <section class="edit-review-container">
+        <form id="editReviewForm">
+            <label for="reviewTitle">Название мероприятия:</label>
+            <input type="text" id="reviewTitle" required>
+
+            <label for="reviewText">Текст отзыва:</label>
+            <textarea id="reviewText" required></textarea>
+
+            <label for="reviewRating">Рейтинг:</label>
+            <input type="number" id="reviewRating" min="1" max="5" required>
+
+            <button type="submit">Сохранить изменения</button>
+        </form>
+    </section>
+
+    <script src="js/editReview.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Административная панель - Калуга Events</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <section class="events-header">
+        <h1>Управление мероприятиями</h1>
+        <p>Здесь вы можете добавлять, редактировать, удалять мероприятия.</p>
+        
+        <!-- Новое меню с кнопками -->
+        <div class="menu">
+            <a href="/favorites.html" id="favoritesButton" class="menu-btn">Избранные мероприятия</a>
+            <a href="/reviews.html" id="reviewsButton" class="menu-btn">Мои отзывы</a>
+            <a href="/add-event.html" id="favoritesButton" class="menu-btn">Добавление мероприятия</a>
+                <button id="toggleViewButton" class="menu-btn">Сетка / Список</button>
+                <button id="logoutButton" class="menu-btn">Выйти</button>
+        </div>
+    
+        <!-- Строка поиска -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Поиск мероприятий..." />
+            <button id="searchButton">Поиск</button>
+            <button id="resetButton">Сброс</button>
+        </div>
+    
+        <!-- Фильтры (изначально скрыты) -->
+        <section class="filters" id="filterSection" hidden>
+            <div class="filter">
+                <label for="priceMin">Минимальная цена:</label>
+                <input type="number" id="priceMin" placeholder="От" />
+            </div>
+            <div class="filter">
+                <label for="priceMax">Максимальная цена:</label>
+                <input type="number" id="priceMax" placeholder="До" />
+            </div>
+            <div class="filter">
+                <label for="eventDateStart">Дата начала:</label>
+                <input type="date" id="eventDateStart" />
+            </div>
+            <div class="filter">
+                <label for="eventDateEnd">Дата окончания:</label>
+                <input type="date" id="eventDateEnd" />
+            </div>
+            <div class="filter">
+                <label for="eventTypeFilter">Тип мероприятия:</label>
+                <select id="eventTypeFilter">
+                    <option value="">Выберите тип</option>
+                    <!-- Типы мероприятий будут загружены через JS -->
+                </select>
+            </div>
+            <div class="filter">
+                <label for="minRating">Минимальный рейтинг:</label>
+                <input type="number" id="minRating" min="0" max="5" step="0.1" placeholder="От 0 до 5" />
+            </div>
+            <button id="applyFiltersButton">Применить фильтры</button>
+            <button id="resetFiltersButton">Сбросить фильтры</button>
+        </section>
+    
+        <!-- Кнопка для показа/скрытия фильтров -->
+        <button id="toggleFiltersButton">Показать фильтры</button>
+    </section>
+
+        <!-- Контейнер для мероприятий -->
+        <section class="events-container grid-view" id="eventsContainer"></section>
+
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Калуга Events</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/login.js" defer></script>
+</head>
+<body>
+    <section class="login-hero">
+        <div class="login-content">
+            <h1>Вход</h1>
+            <p>Войдите в свой аккаунт, чтобы сохранять избранные мероприятия и оставлять отзывы.</p>
+            <form class="login-form" action="/login" method="POST">
+                <input type="text" name="phone_number" placeholder="Номер телефона" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit" class="login-button">Войти</button>
+            </form>
+            <p>Еще нет аккаунта? <a href="/register.html" class="link">Зарегистрироваться</a></p>
+        </div>
+    </section>
+</body>
+</html>

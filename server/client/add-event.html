@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+   
+    <style>
+        /* Стили секции hero */
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            background: linear-gradient(to bottom, #000000, #cccccc); /* Градиент от черного к светло-серому */
+        }
+        .container {
+            width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, textarea, select, button {
+            display: block;
+    width: 95%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    border: 2px solid rgb(0, 0, 0);
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+        }
+        button {
+            width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border-radius: 20px;
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+        }
+        button:hover {
+            background-color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    </section>
+    <div class="container">
+        <h1>Добавление мероприятия</h1>
+        <form id="add-event-form">
+            <label for="title">Введите название:</label>
+            <input type="text" id="title" name="title" placeholder="Enter event title" required>
+
+            <label for="description">Описание:</label>
+            <textarea id="description" name="description" rows="5" placeholder="Введите описаие.." required></textarea>
+
+            <label for="event_type">Тип:</label>
+            <select id="event_type" name="event_type" required>
+                <!-- Опции будут загружаться сюда динамически -->
+            </select>
+
+            <label for="venue_id">Venue ID:</label>
+            <input type="number" id="venue_id" name="venue_id" placeholder="Enter venue ID" required>
+
+            <label for="image_url">Image URL:</label>
+            <input type="url" id="image_url" name="image_url" placeholder="Введите image URL">
+
+            <label for="organizer_url">Организатор URL:</label>
+            <input type="url" id="organizer_url" name="organizer_url" placeholder="Введите organizer URL">
+
+            <label for="price">Цена (руб):</label>
+            <input type="number" id="price" name="price" step="0.01" placeholder="Введите цену" required>
+
+            <label for="event_date">Дата проведения:</label>
+            <input type="date" id="event_date" name="event_date" required>
+
+            <label for="hours">Продолжительность (часы):</label>
+            <input type="number" id="hours" name="hours" step="1" placeholder="Введите сколько часов длится" required>
+
+            <label for="minutes">Продолжительность (минуты):</label>
+            <input type="number" id="minutes" name="minutes" step="1" placeholder="и минут...." required>
+
+            <label for="status">Статус:</label>
+            <select id="status" name="status" required>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+
+            <button type="submit">Добавить мероприятие</button>
+            <a href="/admin.html" id="favoritesButton" class="menu-btn">Назад</a>
+        </form>
+    </div>
+
+    <script>
+        // Загрузка типов мероприятий из базы данных
+        async function loadEventTypes() {
+            try {
+                const response = await fetch('/api/admin/types');
+                if (response.ok) {
+                    const types = await response.json();
+                    const eventTypeSelect = document.getElementById('event_type');
+
+                    // Очищаем текущие опции
+                    eventTypeSelect.innerHTML = '';
+
+                    // Добавляем новые опции
+                    types.forEach(type => {
+                        const option = document.createElement('option');
+                        option.value = type.type_name;
+                        option.textContent = type.type_name;
+                        eventTypeSelect.appendChild(option);
+                    });
+                } else {
+                    alert('Ошибка загрузки типов мероприятий.');
+                }
+            } catch (err) {
+                console.error('Error loading event types:', err);
+                alert('Ошибка загрузки типов мероприятий.');
+            }
+        }
+
+        document.getElementById('add-event-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            
+            // Получаем данные о длительности
+            const hours = document.getElementById('hours').value || 0;
+            const minutes = document.getElementById('minutes').value || 0;
+            const duration = `${hours} hours ${minutes} minutes`;  // Формируем строку длительности
+
+            // Собираем данные формы
+            const formData = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                event_type: document.getElementById('event_type').value,
+                venue_id: parseInt(document.getElementById('venue_id').value, 10),
+                image_url: document.getElementById('image_url').value || null,
+                organizer_url: document.getElementById('organizer_url').value || null,
+                price: parseFloat(document.getElementById('price').value) || 0,
+                event_date: document.getElementById('event_date').value,
+                duration: duration,  // Передаем сформированную строку длительности
+                status: document.getElementById('status').value
+            };
+
+            // Отправка данных на сервер
+            try {
+                const response = await fetch('/api/admin/add-event', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert('Event added successfully!');
+                    document.getElementById('add-event-form').reset();  // Очищаем форму
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.error || 'Failed to add event'}`);
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('Error adding event. Please try again later.');
+            }
+        });
+
+        // Загружаем типы мероприятий при загрузке страницы
+        loadEventTypes();
+    </script>
+</body>
+</html>
